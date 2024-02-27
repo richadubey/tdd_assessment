@@ -8,6 +8,18 @@ RSpec.describe StringCalculator do
       end
     end
 
+    context 'when given a single number' do
+      it 'returns the number' do
+        expect(StringCalculator.add("1")).to eq(1)
+      end
+    end
+
+    context 'when given multiple numbers separated by commas' do
+      it 'returns the sum of the numbers' do
+        expect(StringCalculator.add("1,2,3")).to eq(6)
+      end
+    end
+
     context 'when given negative numbers' do
       it 'raises an exception' do
         expect { StringCalculator.add("1,-2,3") }.to raise_error(RuntimeError, "Negatives not allowed: -2")
