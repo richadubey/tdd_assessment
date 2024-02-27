@@ -1,0 +1,1 @@
+This is spec file
