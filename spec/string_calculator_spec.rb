@@ -20,6 +20,18 @@ RSpec.describe StringCalculator do
       end
     end
 
+    context 'when given numbers separated by a newline character' do
+      it 'returns the sum of the numbers' do
+        expect(StringCalculator.add("1\n2,3")).to eq(6)
+      end
+    end
+
+    context 'when given numbers with a custom delimiter' do
+      it 'returns the sum of the numbers' do
+        expect(StringCalculator.add("//;\n1;2;3")).to eq(6)
+      end
+    end
+
     context 'when given negative numbers' do
       it 'raises an exception' do
         expect { StringCalculator.add("1,-2,3") }.to raise_error(RuntimeError, "Negatives not allowed: -2")
