@@ -26,5 +26,11 @@ RSpec.describe StringCalculator do
       end
     end
 
+    context 'when given numbers with a custom delimiter' do
+      it 'returns the sum of the numbers' do
+        expect(StringCalculator.add("//;\n1;2")).to eq(3)
+      end
+    end
+
   end
 end
