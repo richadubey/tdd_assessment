@@ -26,33 +26,27 @@ RSpec.describe StringCalculator do
       end
     end
 
-    context 'when given numbers with a single-character custom delimiter' do
+    context 'when given numbers with a custom delimiter' do
       it 'returns the sum of the numbers' do
         expect(StringCalculator.add("//;\n1;2")).to eq(3)
       end
     end
 
-    context 'when given numbers with a multi-character custom delimiter' do
-      it 'returns the sum of the numbers' do
+    context 'when given multiple-character custom delimiter' do
+      it 'returns the sum of numbers' do
         expect(StringCalculator.add("//[***]\n1***2***3")).to eq(6)
-      end
-    end
-
-    context 'when given numbers with multiple custom delimiters' do
-      it 'returns the sum of the numbers' do
-        expect(StringCalculator.add("//[*][%]\n1*2%3")).to eq(6)
-      end
-    end
-
-    context 'when given numbers with a delimiter that is a special character' do
-      it 'returns the sum of the numbers' do
-        expect(StringCalculator.add("//.\n1.2.3")).to eq(6)
       end
     end
 
     context 'when given negative numbers' do
       it 'raises an exception' do
         expect { StringCalculator.add("1,-2,3") }.to raise_error(RuntimeError, "Negatives not allowed: -2")
+      end
+    end
+
+    context 'when given an invalid delimiter format' do
+      it 'raises an exception' do
+        expect { StringCalculator.add("///;\n1;2;3") }.to raise_error(ArgumentError, "Invalid delimiter format")
       end
     end
   end

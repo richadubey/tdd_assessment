@@ -14,11 +14,20 @@ class StringCalculator
   def self.get_delimiter(numbers)
     if numbers.start_with?("//")
       delimiter_section, numbers = numbers.split("\n", 2)
-      delimiter = delimiter_section[2..].tr("[]", "") # Supports multi-character delimiters
+
+      raise ArgumentError, "Invalid delimiter format" if numbers.nil?
+
+      delimiters = delimiter_section.scan(/\[([^\]]+)\]/).flatten
+      delimiters = [delimiter_section[2..]] if delimiters.empty?
+
+      if delimiters.any?(&:empty?) || delimiters.include?("/")
+        raise ArgumentError, "Invalid delimiter definition"
+      end
     else
-      delimiter = ","
+      delimiters = [","]
     end
-    [Regexp.escape(delimiter), numbers]
+
+    [Regexp.union(delimiters), numbers]
   end
 
   def self.check_negatives(numbers)
